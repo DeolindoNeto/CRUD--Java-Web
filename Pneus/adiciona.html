@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+		
+	<head>
+		<link rel= "stylesheet" type= "text/css" href= "estilo.css" />
+		
+		<script type="text/javascript">
+		
+		function validar()
+			{
+				var txmod = fentrada.nome.value + "";
+				var txmar = fentrada.marca.value + "";
+				var txrai = fentrada.descricao.value + "";
+				var txpre = fentrada.preco.value + "";
+				var txfoto = fentrada.imagem.value + "";
+				
+				if (txmod == "")
+				{
+					alert('Preencha o campo Nome!!!!');
+					fentrada.nome.focus();
+					return false;
+				}
+				
+				if (txmar == "")
+				{
+					alert('Preencha o campo Marca!!!!');
+					fentrada.marca.focus();
+					return false;
+				}
+				
+				
+				if (txrai == "")
+				{
+					alert('Preencha o campo Descricao!!!');
+					fentrada.preco.focus();
+					return false;
+				}
+				
+				
+				if (txpre == "")
+				{
+					alert('Preencha o campo Preco!!!!');
+					fentrada.preco.focus();
+					return false;
+				}
+				
+				if (txfoto == "")
+				{
+					alert('Escolha a foto!!!!');
+					fentrada.imagem.focus();
+					return false;
+				}
+				
+				document.forms[0].submit();
+			}
+		</script>
+		
+	</head>
+	
+	<body background="unesp.jpg">	
+		<center>
+			<div id="fundo">
+				<div id="div_branca_fundo">
+					<form name="fentrada" action="salvar.jsp" method="post">
+						
+						<font color="#000">
+						<br>
+						<b><n> ---------------------- Cadastrar PNEUS ---------------------- </n></b>
+						<br>
+						
+						<div style="font-size: 4.6px;"><br></div>
+						 
+						<table width="200" border="0" align="center"> 
+   					    <tr>
+							<td height="40">Nome:</td>
+							
+							<td><input type="text" name="nome" id="nome" value=""  style="height: 20px; width: 370px; border-radius:5px;" /></td>
+						   
+						</tr>
+						<tr>
+							<td height="40">Marca:</td>
+							<td><input type="text" name="marca" id="marca" value="" style="height: 20px; width: 360px; border-radius:5px;" /></td>
+						</tr>
+						<tr>
+							<td height="40">Descricaoo:</td>
+							<td><input type="text" name="descricao" value="" style="height: 20px; width: 60px; border-radius:5px;" /></td>
+							
+						   
+						</tr>
+				
+						<tr>
+							<td height="40">Preco:</td>
+							<td><input type="text" name="preco" value="" style="height: 20px; width: 80px; border-radius:5px;" /></td>
+						
+						   
+						</tr>
+						
+						
+						</table>
+						 
+						<div style="width: 250px; height: 80px; padding-top: 10px; display: block; margin: auto;">
+							<div id="publi_imagem" class="publi_imagem">
+								<input type="file" id="imagem" name="imagem"/>
+							</div>
+							<output id="list"></output>
+							<div id="foto_inserida_maisbaixa">
+							</div>
+						</div>
+						
+						<div style="font-size: 4.6px;"><br></div>
+						
+						<br>
+						<input type="submit" value="Gravar" onclick="return validar()" class="enviar"/>
+						<input type="reset" name="limpa" value="LIMPAR CAMPOS" tabindex="7" />
+					</form>
+					
+					<script type="text/javascript">
+						var pegadiv = document.getElementById('foto_inserida_maisbaixa');
+					var imageElement = document.createElement('img');
+					imageElement.id = 'imagelogo';
+					imageElement.className = 'thumb';
+					imageElement.style.width = '80px';
+					imageElement.src = 'C:/xampp/tomcat/webapps/Pneus/foto/vazio.png'; // Use forward slashes or double backslashes
+					imageElement.title = 'Image Title';
+					pegadiv.appendChild(imageElement);				
+						function handleFileSelect(evt) 
+						{
+							//ADAPTADO DE http://www.html5rocks.com/en/tutorials/file/dndfiles/
+							// Loop through the FileList and render image files as thumbnails.
+							var files = evt.target.files; 
+							for (var i = 0, f; f = files[i]; i++)
+							{
+								// Only process image files.
+								if (!f.type.match('image.*'))
+									continue;
+								var reader = new FileReader();
+								// Closure to capture the file information.
+								reader.onload = (function(theFile)
+								{
+									return function(e)
+									{
+										// Render thumbnail.
+										var pegadiv = document.getElementById('foto_inserida_maisbaixa').insertBefore(list, null);
+										
+										pegadiv.innerHTML = ['<img id="imagelogo" class="thumb" src="', e.target.result,'" title="', escape(theFile.name), '"/>'].join('');
+										var largura = document.getElementById('imagelogo').offsetWidth; // retorna a largura
+										var altura = document.getElementById('imagelogo').offsetHeight; // retorna a altura
+										
+										if (largura >= altura)
+										{
+											pegadiv.innerHTML = ['<img id="imagelogo" class="thumbhor" style="height: 80px;" src="', e.target.result,'" title="', escape(theFile.name), '"/>'].join('');
+										}
+										else if (altura >= largura)
+										{
+											pegadiv.innerHTML = ['<img id="imagelogo" class="thumb" style="width: 80px;" src="', e.target.result,'" title="', escape(theFile.name), '"/>'].join('');
+										}
+									};
+								})(f);
+								// Read in the image file as a data URL.
+								reader.readAsDataURL(f);
+							}
+						}
+						document.getElementById('imagem').addEventListener('change', handleFileSelect, false);
+					</script>
+					
+				</div>
+				<br>
+				<br>
+				<div style="font-size: 9px;"><br></div>
+			</div>
+		</center>
+	</body>
+</html>
